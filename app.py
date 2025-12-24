@@ -6,23 +6,32 @@ app = Flask(__name__)
 def index():
     prompt = None
     confirmed = False
+    image_url = None
+    style = None
 
     if request.method == "POST":
         action = request.form.get("action")
-        prompt = request.form.get("prompt")
 
         if action == "generate":
             idea = request.form.get("idea")
             style = request.form.get("style")
+
             prompt = f"Create a {style} design based on the idea: {idea}"
+            image_url = f"/static/images/{style}.jpg"
 
         elif action == "confirm":
+            prompt = request.form.get("prompt")
+            style = request.form.get("style")
+
             confirmed = True
+            image_url = f"/static/images/{style}.jpg"
 
     return render_template(
         "index.html",
         prompt=prompt,
-        confirmed=confirmed
+        confirmed=confirmed,
+        image_url=image_url,
+        style=style
     )
 
 if __name__ == "__main__":

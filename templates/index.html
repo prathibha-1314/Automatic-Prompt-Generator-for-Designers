@@ -90,20 +90,37 @@
         <h3>Generated Prompt</h3>
 
         <form method="POST">
-            <textarea name="prompt">{{ prompt }}</textarea>
-            <input type="hidden" name="action" value="confirm">
-            <button type="submit">Confirm Prompt</button>
-        </form>
+    <textarea name="prompt">{{ prompt }}</textarea>
+
+    <input type="hidden" name="action" value="confirm">
+    <input type="hidden" name="style" value="{{ style }}">
+
+    <button type="submit">Confirm Prompt</button>
+</form>
+
     </div>
     {% endif %}
 
     {% if confirmed %}
-    <div class="card success">
-        <h3>Prompt Confirmed ?</h3>
-        <p>You can now proceed to image generation.</p>
-    </div>
-    {% endif %}
+<div class="card success">
+    <h3>Prompt Confirmed ?</h3>
+    <p>You can now proceed to image generation.</p>
 </div>
+{% endif %}
+
+{% if confirmed and image_url %}
+<div class="card">
+    <h3>Generated Image</h3>
+
+    <img src="{{ image_url }}"
+         alt="Generated design"
+         style="width:100%; border-radius:10px; margin-top:10px;">
+
+    <a href="{{ image_url }}" download>
+        <button style="margin-top:15px;">Download Image</button>
+    </a>
+</div>
+{% endif %}
 
 </body>
 </html>
