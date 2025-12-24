@@ -1,55 +1,109 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
     <title>Automatic Prompt Generator for Designers</title>
     <style>
         body {
+            background: linear-gradient(135deg, #0f172a, #1e293b);
             font-family: Arial, sans-serif;
-            background: #f4f6f8;
+            color: #e5e7eb;
+            margin: 0;
             padding: 40px;
         }
+
+        .app-container {
+            max-width: 700px;
+            margin: auto;
+        }
+
         h1 {
-            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
         }
-        textarea, select, button {
-            width: 100%;
+
+        .card {
+            background: #111827;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .card.success {
+            border-left: 4px solid #22c55e;
+        }
+
+        label {
+            display: block;
             margin-top: 10px;
-            padding: 10px;
         }
-        .output {
-            margin-top: 20px;
-            background: #fff;
-            padding: 15px;
+
+        textarea, select {
+            width: 100%;
+            margin-top: 6px;
+            padding: 10px;
             border-radius: 6px;
+            border: none;
+            font-size: 14px;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 10px 16px;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #2563eb;
         }
     </style>
 </head>
 <body>
 
-    <h1>🎨 Automatic Prompt Generator for Designers</h1>
+<div class="app-container">
+    <h1>Automatic Prompt Generator for Designers</h1>
 
-    <form method="POST">
+    <!-- Generate Prompt -->
+    <form method="POST" class="card">
+        <input type="hidden" name="action" value="generate">
+
         <label>Design Idea</label>
-        <textarea name="idea" placeholder="Eg: Minimalist coffee app UI"></textarea>
+        <textarea name="idea" required></textarea>
 
         <label>Design Style</label>
         <select name="style">
             <option value="minimal">Minimal</option>
             <option value="modern">Modern</option>
-            <option value="flat">Flat</option>
-            <option value="3D">3D</option>
+            <option value="cyberpunk">Cyberpunk</option>
+            <option value="illustration">Illustration</option>
         </select>
 
         <button type="submit">Generate Prompt</button>
     </form>
 
     {% if prompt %}
-    <div class="output">
-        <h3>Generated Prompt:</h3>
-        <p>{{ prompt }}</p>
+    <!-- Confirm Prompt -->
+    <div class="card">
+        <h3>Generated Prompt</h3>
+
+        <form method="POST">
+            <textarea name="prompt">{{ prompt }}</textarea>
+            <input type="hidden" name="action" value="confirm">
+            <button type="submit">Confirm Prompt</button>
+        </form>
     </div>
     {% endif %}
+
+    {% if confirmed %}
+    <div class="card success">
+        <h3>Prompt Confirmed ?</h3>
+        <p>You can now proceed to image generation.</p>
+    </div>
+    {% endif %}
+</div>
 
 </body>
 </html>
