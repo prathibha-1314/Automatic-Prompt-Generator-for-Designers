@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Automatic Prompt Generator for Designers</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            padding: 40px;
+        }
+        h1 {
+            color: #333;
+        }
+        textarea, select, button {
+            width: 100%;
+            margin-top: 10px;
+            padding: 10px;
+        }
+        .output {
+            margin-top: 20px;
+            background: #fff;
+            padding: 15px;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🎨 Automatic Prompt Generator for Designers</h1>
+
+    <form method="POST">
+        <label>Design Idea</label>
+        <textarea name="idea" placeholder="Eg: Minimalist coffee app UI"></textarea>
+
+        <label>Design Style</label>
+        <select name="style">
+            <option value="minimal">Minimal</option>
+            <option value="modern">Modern</option>
+            <option value="flat">Flat</option>
+            <option value="3D">3D</option>
+        </select>
+
+        <button type="submit">Generate Prompt</button>
+    </form>
+
+    {% if prompt %}
+    <div class="output">
+        <h3>Generated Prompt:</h3>
+        <p>{{ prompt }}</p>
+    </div>
+    {% endif %}
+
+</body>
+</html>
